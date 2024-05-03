@@ -1,0 +1,17 @@
+apiVersion: api-management.sensedia.com/v1
+kind: App
+spec:
+  name: cli-app-sample
+  description: APP sample description
+  developer: leonardo.americo@sensedia.com
+  status: APPROVED
+  showAppGallery: false
+  ownerType: DEVELOPER
+  apis:
+  - name: CLI-Sample
+    version: 1.0.0
+    description: sample
+    plans:
+    - name: environments-plan-cli-sample
+      description: Description for plan cli-sample
+      defaultPlan: true
