@@ -1,0 +1,24 @@
+apiVersion: api-management.sensedia.com/v1
+kind: Plan
+spec:
+  name: environments-plan-cli-sample
+  apiRef:
+    name: CLI-Sample
+    version: 1.0.0
+  description: Description for plan cli-sample
+  default: true
+  flows:
+  - context:
+      revision: all
+      resourceRef:
+        name: all
+      operationRef:
+        method: all
+        path: /
+    requestInterceptors:
+    - restrictAccess:
+        environmentRefs:
+        - name: CLI - Dev
+        - name: CLI - Hml
+        - name: CLI - Prd
+        type: ALLOW_LIST
