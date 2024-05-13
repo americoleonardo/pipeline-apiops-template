@@ -21,11 +21,11 @@ jobs:
       - name: wget
         uses: wei/wget@v1
         with:
-          args: -O /bin/ssd https://cli.sensedia.com/2.8.0/ssd-linux-am64/ssd
+          args: -O https://cli.sensedia.com/2.8.0/ssd-linux-am64/ssd
 
-      - name: Testing binary
+      - name: Move binary
         run: |
-          chmod +x /bin/ssd && ssd version
+          ls -la
 
       - name: filter differences
         run: |
