@@ -21,7 +21,11 @@ jobs:
       - name: apt install
         run: sudo apt-get update && sudo apt-get install -y wget curl
 
-
+      - name: download bin
+        run: wget -O https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd
+      
+      - name: list bin & permissions
+        run: ls -la && chmod +x ssd
 
       - name: filter differences
         run: |
