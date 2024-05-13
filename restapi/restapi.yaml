@@ -13,4 +13,3 @@ spec:
     - log:
         encryptContent: true
         encryptParams: false
-      
