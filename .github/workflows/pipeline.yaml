@@ -20,7 +20,7 @@ jobs:
       
       - name: Download binary
         run: |
-          https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd
+          wget -O https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd
 
       - name: filter differences
         run: |
