@@ -18,14 +18,10 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: wget
-        uses: wei/wget@v1
-        with:
-          args: -F ssd https://cli.sensedia.com/2.8.0/ssd-linux-am64/ssd
+      - name: apt install
+        run: sudo apt-get update && sudo apt-get install -y wget curl
 
-      - name: Move and check binary
-        run: |
-          chmod +777 ssd && mv ssd /usr/local/bin && ssd version && ls -la
+
 
       - name: filter differences
         run: |
