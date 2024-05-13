@@ -25,7 +25,10 @@ jobs:
         run: curl -L https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd -o ssd
       
       - name: list bin & permissions
-        run: chmod +x ssd && ./ssd version
+        run: chmod +x ssd && mv ssd /usr/local/bin
+
+      - name: check global
+        run: ssd version
 
       - name: filter differences
         run: |
