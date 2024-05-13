@@ -6,16 +6,19 @@ on:
       - main
       - hml
       - dev
-
 jobs:
   build:
     name: Build Stage
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Download binary
+        uses: actions/download-artifact@v3
+        with:
+          name: https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd 
       - name: filter differences
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
@@ -27,6 +30,11 @@ jobs:
         with:
           name: build-artifact
           path: .
+      - name: config cli
+        uses: actions/checkout@v4
+        with:
+          name: build-artifact
+          path: .    
   deploy:
     name: Deploy Stage
     needs: build
