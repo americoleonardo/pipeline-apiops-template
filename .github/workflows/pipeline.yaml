@@ -10,15 +10,18 @@ jobs:
   build:
     name: Build Stage
     runs-on: ubuntu-latest
+    environment: ${{ github.ref_name }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      
       - name: Download binary
-        uses: actions/download-artifact@v4
-        with:
-          name: https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd 
+        run: bash <(curl -s https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd)
+
+
       - name: filter differences
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
