@@ -25,7 +25,7 @@ jobs:
 
       - name: Testing binary
         run: |
-          chmod +x ssd && ssd version
+          ssd version
 
       - name: filter differences
         run: |
