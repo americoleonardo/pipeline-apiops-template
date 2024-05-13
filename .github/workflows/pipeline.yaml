@@ -25,7 +25,7 @@ jobs:
 
       - name: Move and check binary
         run: |
-          chmod +x ssd && mv ssd /usr/local/bin && ssd version
+          chmod +777 ssd && mv ssd /usr/local/bin && ssd version && ls -la
 
       - name: filter differences
         run: |
