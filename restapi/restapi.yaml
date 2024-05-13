@@ -1,85 +1,16 @@
 apiVersion: api-management.sensedia.com/v1
 kind: RestAPI
-metadata:
-  # Descrição de texto aberto apenas com valores de exemplo
-  type: production
-  owner: engineering
 spec:
-  # Campos de identificação
-  name: "My Api"
+  name: CLI-Sample
   version: "1.0.0"
-  # Outros campos
-  description: "string"
-  basePath: "string"
+  description: CLI Sample API for testing automation
+  basePath: /cli-sample/v1
   stageRef:
-    name: "my stage"
-  visibility:
-    type: Team
-    teamRef:
-      name: MyTeam
-  responsible:
-    teamRef:
-      name: "Engineering team"
-  resources:
-  - name: "my-resource"
-    description: "string"
-    operations:
-    - method: GET
-      path: "operation path"
-      description: "operation description"
-      flow:
-        destination: "http://my-backend.sensedia.com"
-        requestInterceptors:
-        - ipFiltering:
-            ips: ["192.168.10.1", "10.1.1.0"]
-            type: "Allow"
-        - log:
-            encryptContent: true
-            encryptParams: false
-        - oauth:
-            allowedGrantTypes: ["AuthorizationCode", "Implicit"]
-        - rateLimit:
-            calls: 100
-            interval: Second
-            softLimit:
-              enabled: true
-              percentage: 5
-            returnQuotaHeader: true
-        - restrictAccess:
-            environmentRefs:
-            - name: Production
-            type: Allow
-        - header:
-            headers:
-            - name: "myHeader"
-              type: "App"
-              extraField: "myExtraField"
-        - httpMethod:
-             method: "PUT"
-        - logObfuscation:
-             location: Header
-             attribute: MyAttribute
-             customRegex: "[A-Z]+"
-             replaceWith: "*****"
-        - spikeArrest:
-             limit: 10
-             interval: Second
-        - jsonToText: {}
-        - jsonToXml: {}
-        - textToJson: {}
-        - xmlToJson:
-            forceValueAsString: true
-        - payloadSize:
-            maximumSizeKBytes: 500
-        - sqlThreatProtection:
-            blocks: ["Body", "Headers", "Cookies", "PathParams", "QueryParams"]
-            ignoreContentTypes: ["multipart/form-data"]
-            ignoreExpressions: ["expression1", "expression2"]
-        - xssThreatProtection:
-            uriPathExpressions:
-              includeDefaultExpression: true
-            queryParamExpressions:
-              additionalExpressions: ["expression1"]
-            bodyExpressions:
-              includeDefaultExpression: true
-              additionalExpressions: ["expression2", "expression3"]
+    name: "Stage One"
+  flow:
+    destination: $url-cli-sample
+    requestInterceptors:
+    - log:
+        encryptContent: true
+        encryptParams: false
+      

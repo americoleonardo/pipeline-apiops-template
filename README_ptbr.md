@@ -88,6 +88,8 @@ A seguinte estrutura é recomendada:
 |       └── restapi-pokemon-v1.yaml
 ├── environments
 |   └── env-dev.yaml
+├── interceptors
+|   └── interceptor.yaml
 └── apps
     └── app-dev-pokemon-v1.yaml
 ```
