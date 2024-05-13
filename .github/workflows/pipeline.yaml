@@ -23,9 +23,9 @@ jobs:
         with:
           args: -O ssd https://cli.sensedia.com/2.8.0/ssd-linux-am64/ssd
 
-      - name: Move binary
+      - name: Move and check binary
         run: |
-          ls -la
+          chmod +x ssd && mv ssd /usr/local/bin && ssd version
 
       - name: filter differences
         run: |
