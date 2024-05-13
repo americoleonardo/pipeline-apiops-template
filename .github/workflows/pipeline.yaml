@@ -20,7 +20,7 @@ jobs:
       
       - name: Download binary
         run: |
-          wget -O https://cli.sensedia.com/2.8.0/ssd-linux-am64/ssd /home
+          wget -qO https://cli.sensedia.com/2.8.0/ssd-linux-am64/ssd
 
       - name: Testing binary
         run: |
