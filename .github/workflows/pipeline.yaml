@@ -19,7 +19,8 @@ jobs:
           fetch-depth: 0
       
       - name: Download binary
-        run: bash <(curl -s https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd)
+        run: |
+          https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd
 
       - name: filter differences
         run: |
