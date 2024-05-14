@@ -30,11 +30,12 @@ jobs:
       - name: test/lint
         run: yamllint .
 
-      - name: save build artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: build-artifact
-          path: .
+      - name: Configure CLI environment
+        run: |
+          ssd configure --url ${{vars.SENSEDIA_CLI_MANAGER_URL}} --token ${{ secrets.SENSEDIA_CLI_TOKEN  }} -o json
+
+      
+          
   deploy:
     name: Deploy Stage
     needs: build
