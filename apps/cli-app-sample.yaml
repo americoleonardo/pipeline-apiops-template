@@ -12,6 +12,6 @@ spec:
       version: 1.0.0
       description: sample
       plans:
-      - name: environments-plan-cli-sample
-        description: Description for plan cli-sample
-        defaultPlan: true
+        - name: environments-plan-cli-sample
+          description: Description for plan cli-sample
+          defaultPlan: true
