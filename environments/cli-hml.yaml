@@ -14,10 +14,10 @@ spec:
       name: CLI - Hml
     path: ""
   mapVars:
-  - description: Description for API Sample
-    name: Map sample
-    vars:
-    - key: url-cli-sample
-      value: https://swapi.dev/api
-      variableType: DEFAULT
+    - description: Description for API Sample
+      name: Map sample
+      vars:
+        - key: url-cli-sample
+          value: https://swapi.dev/api
+          variableType: DEFAULT
 
