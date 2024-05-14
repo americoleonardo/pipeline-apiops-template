@@ -2,7 +2,9 @@ yaml-files:
   - '*.yaml'
   - '*.yml'
   - '.yamllint'
-
+ignore: |
+  .github/workflows
+  '.yamllint'
 rules:
   anchors: enable
   braces: enable
