@@ -17,13 +17,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - name: apt install
-        run: sudo apt-get update && sudo apt-get install -y wget curl && curl -L https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd -o ssd && chmod +x ssd && mv ssd /usr/local/bin
-
-      - name: check global
-        run: ssd version
-
+      - name: Install cli
+        run: |
+          sudo apt-get update && sudo apt-get install -y wget curl &&
+          curl -L https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd -o ssd &&
+          chmod +x ssd && mv ssd /usr/local/bin
       - name: filter differences
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
