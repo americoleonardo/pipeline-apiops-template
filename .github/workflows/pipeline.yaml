@@ -28,18 +28,13 @@ jobs:
           cat .diff-files | grep -v ".github/" | grep .yaml  > .crds-to-apply | true
           
       - name: test/lint
-        run: yamllint environments/
+        run: yamllint .
 
       - name: save build artifact
         uses: actions/upload-artifact@master
         with:
           name: build-artifact
           path: .
-      - name: config cli
-        uses: actions/checkout@v4
-        with:
-          name: build-artifact
-          path: .    
   deploy:
     name: Deploy Stage
     needs: build
