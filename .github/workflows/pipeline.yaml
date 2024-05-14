@@ -17,18 +17,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Install cli
+      - name: Install packages
         run: |
           sudo apt-get update && sudo apt-get install -y wget curl &&
           curl -L https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd -o ssd &&
-          chmod +x ssd && mv ssd /usr/local/bin
+          chmod +x ssd && mv ssd /usr/local/bin && apt-get install yamllint
       - name: filter differences
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
           cat .diff-files | grep -v ".github/" | grep .yaml  > .crds-to-apply | true
           
       - name: test/lint
-        run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/yaml-lint/master/pipeline.sh)
+        run: yamllint .
+
       - name: save build artifact
         uses: actions/upload-artifact@master
         with:
