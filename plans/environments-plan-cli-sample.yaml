@@ -8,17 +8,17 @@ spec:
   description: Description for plan cli-sample
   default: true
   flows:
-  - context:
-      revision: all
-      resourceRef:
-        name: all
-      operationRef:
-        method: all
-        path: /
-    requestInterceptors:
-    - restrictAccess:
-        environmentRefs:
-        - name: CLI - Dev
-        - name: CLI - Hml
-        - name: CLI - Prd
-        type: ALLOW_LIST
+    - context:
+        revision: all
+        resourceRef:
+          name: all
+        operationRef:
+          method: all
+          path: /
+      requestInterceptors:
+        - restrictAccess:
+            environmentRefs:
+              - name: CLI - Dev
+              - name: CLI - Hml
+              - name: CLI - Prd
+            type: ALLOW_LIST
