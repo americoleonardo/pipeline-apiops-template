@@ -4,7 +4,7 @@ yaml-files:
   - '.yamllint'
 ignore: |
   .github/workflows
-  '.yamllint'
+ignore-from-file: [.yamllint]
 rules:
   anchors: enable
   braces: enable
