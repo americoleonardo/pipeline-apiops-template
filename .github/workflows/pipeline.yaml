@@ -32,7 +32,7 @@ jobs:
 
       - name: Configure CLI environment
         run: |
-          ssd configure --url ${{vars.SENSEDIA_CLI_MANAGER_URL}} --token ${{ secrets.SENSEDIA_CLI_TOKEN  }} -o json
+          ssd configure --url ${{ secrets.SENSEDIA_CLI_MANAGER_URL }} --token ${{ secrets.SENSEDIA_CLI_TOKEN  }} -o json
 
       
           
