@@ -1,7 +1,6 @@
 yaml-files:
   - '*.yaml'
   - '*.yml'
-  - '.yamllint'
 ignore: |
   .github/workflows
 ignore-from-file: [.yamllint]
