@@ -11,5 +11,5 @@ spec:
     destination: $url-cli-sample
     requestInterceptors:
     - log:
-        encryptContent: true
-        encryptParams: false
+      encryptContent: true
+      encryptParams: false
