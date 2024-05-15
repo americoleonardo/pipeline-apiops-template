@@ -19,18 +19,14 @@ jobs:
           fetch-depth: 0
       - name: Install packages
         run: |
-          sudo apt-get update && sudo apt-get install -y wget curl yamllint &&
-          curl -L https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd -o ssd &&
-          chmod +x ssd && mv ssd /usr/local/bin
+          sudo apt-get update && sudo apt-get install -y wget curl yamllint
       - name: filter differences
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
           cat .diff-files | grep -v ".github/" | grep .yaml  > .crds-to-apply | true
       - name: test/lint
         run: yamllint .
-      - name: Configure CLI environment
-        run: |
-          ssd configure --url ${{ secrets.SENSEDIA_CLI_MANAGER_URL }} --token ${{ secrets.SENSEDIA_CLI_TOKEN  }} -o json
+      
       - name: build artifact
         uses: actions/upload-artifact@master
         with:
@@ -48,7 +44,14 @@ jobs:
         with:
           name: build-artifact
           path: .
-
+      - name: Install CLI
+          run: |
+            sudo apt-get update && sudo apt-get install -y wget curl yamllint &&
+            curl -L https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd -o ssd &&
+            chmod +x ssd && mv ssd /usr/local/bin
+      - name: Configure CLI environment
+        run: |
+          ssd configure --url ${{ secrets.SENSEDIA_CLI_MANAGER_URL }} --token ${{ secrets.SENSEDIA_CLI_TOKEN  }} -o json
       - name: Apply changed files
         run: |
           ls -la /usr/local/bin
