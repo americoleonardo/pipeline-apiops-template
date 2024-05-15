@@ -33,8 +33,7 @@ jobs:
           name: build-artifact
           path: .
   deploy:
-    if: ${{ github.ref == 'refs/heads/main' }}
-    name: Deploy on selected environment
+    name: Deploy
     needs: build
     runs-on: ubuntu-latest
     
