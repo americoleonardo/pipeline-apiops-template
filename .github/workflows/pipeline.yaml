@@ -38,8 +38,7 @@ jobs:
           path: .
   deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
-    name: Deploy prod
-    environment: main
+    name: Deploy on selected environment
     needs: build
     runs-on: ubuntu-latest
     
@@ -52,7 +51,7 @@ jobs:
 
       - name: Apply changed files
         run: |
-          ssd version
+          ls -la /usr/local/bin
           echo "Check all newed/changed CRDs"
           
           echo "Update Apps"
