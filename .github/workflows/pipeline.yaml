@@ -59,8 +59,13 @@ jobs:
           echo "Update Environment"
 
           cat .crds-to-apply | grep "environments/main" > .crds-env-to-apply | true
-          ls -la
-          cat .crds-env-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
+          
+          while IFS= .crds-env-to-apply -r line; do
+            command="ssd apply -f $line"
+            echo "Executando: $command"
+            $command
+          done
+          
 
           ------------------------------------------------------------------------
 
