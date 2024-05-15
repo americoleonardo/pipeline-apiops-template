@@ -37,7 +37,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name }}
-    
+
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@master
@@ -54,8 +54,7 @@ jobs:
           ssd configure --url ${{ secrets.SENSEDIA_CLI_MANAGER_URL }} --token ${{ secrets.SENSEDIA_CLI_TOKEN  }} -o json
       - name: Apply changed files
         run: |
-          ls -la /usr/local/bin
-          echo "Check all newed/changed CRDs"
+          echo "Check all newed/changed CRDs to ${{ github.ref_name }}"
           
           echo "Update Apps"
           cat .crds-to-apply | grep "apps" > .crds-app-to-apply | true
