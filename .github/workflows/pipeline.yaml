@@ -52,6 +52,19 @@ jobs:
       - name: Configure CLI environment
         run: |
           ssd configure --url ${{ secrets.SENSEDIA_CLI_MANAGER_URL }} --token ${{ secrets.SENSEDIA_CLI_TOKEN  }} -o json
+      
+      - name: Check And Apply Changes
+        run: |
+
+          for file in $(git diff --name-only main HEAD^); do
+            if [[ $file == *.yaml ]]; then
+                echo "Arquivo YAML modificado: $file"
+                ssd apply -f $file
+            fi
+          done
+    
+      
+
       - name: Apply changed files
         run: |
           echo "Check all newed/changed CRDs to ${{ github.ref_name }}"
