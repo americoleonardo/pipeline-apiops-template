@@ -45,10 +45,10 @@ jobs:
           name: build-artifact
           path: .
       - name: Install CLI
-          run: |
-            sudo apt-get update && sudo apt-get install -y wget curl yamllint &&
-            curl -L https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd -o ssd &&
-            chmod +x ssd && mv ssd /usr/local/bin
+        run: |
+          sudo apt-get update && sudo apt-get install -y wget curl yamllint &&
+          curl -L https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd -o ssd &&
+          chmod +x ssd && mv ssd /usr/local/bin
       - name: Configure CLI environment
         run: |
           ssd configure --url ${{ secrets.SENSEDIA_CLI_MANAGER_URL }} --token ${{ secrets.SENSEDIA_CLI_TOKEN  }} -o json
