@@ -36,7 +36,7 @@ jobs:
         with:
           name: build-artifact
           path: .
-  deploy_main:
+  deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
     name: Deploy prod
     environment: main
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: download build artifact
+      - name: Download build artifact
         uses: actions/download-artifact@master
         with:
           name: build-artifact
@@ -52,29 +52,38 @@ jobs:
 
       - name: Apply changed files
         run: |
-          echo "all newed/changed CRDs"
-          cat .crds-to-apply
+          echo "Check all newed/changed CRDs"
+          
+          echo "Update Apps"
+          cat .crds-to-apply | grep "apps" > .crds-app-to-apply | true
+          cat .crds-app-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
+          
+          ------------------------------------------------------------------------
 
-          echo "ssd apply -f in all kind RestAPI"
+          echo "Update Plans"
+          cat .crds-to-apply | grep "plan-" > .crds-plan-to-apply | true
+          cat .crds-plan-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
+
+          ------------------------------------------------------------------------
+
+          echo "Update RestAPI"
           cat .crds-to-apply | grep "restapi-" > .crds-restapi-to-apply | true
-          cat .crds-restapi-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+          cat .crds-restapi-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
 
-          echo "ssd apply -f in all kind Environment"
-          cat .crds-to-apply | grep "env-" > .crds-env-to-apply | true
+          ------------------------------------------------------------------------
+
+          echo "Update Environment"
+          cat .crds-to-apply | grep "environments/main" > .crds-env-to-apply | true
           cat .crds-env-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
 
-          echo "ssd apply -f in all kind ApiEnvironmentLink"
-          cat .crds-to-apply | grep "apienvlink-" > .crds-appenvlink-to-apply | true
-          cat .crds-appenvlink-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+          ------------------------------------------------------------------------
 
-          echo "ssd apply -f in all kind Deployment"
-          cat .crds-to-apply | grep "deployment-" > .crds-deployment-to-apply | true
-          cat .crds-deployment-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+          echo "Update ApiEnvironmentLink"
+          cat .crds-to-apply | grep "environment-link/main-" > .crds-appenvlink-to-apply | true
+          cat .crds-appenvlink-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
 
-          echo "ssd apply -f in all kind Plan"
-          cat .crds-to-apply | grep "plan-" > .crds-plan-to-apply | true
-          cat .crds-plan-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+          ------------------------------------------------------------------------
 
-          echo "ssd apply -f in all kind App"
-          cat .crds-to-apply | grep "app-" > .crds-app-to-apply | true
-          cat .crds-app-to-apply | xargs -n 1 --no-run-if-empty -t ./ssd apply -f
+          echo "Deploy APIs"
+          cat .crds-to-apply | grep "deployment/main" > .crds-deployment-to-apply | true
+          cat .crds-deployment-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
