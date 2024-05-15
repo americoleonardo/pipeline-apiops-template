@@ -55,12 +55,11 @@ jobs:
       - name: Apply changed files
         run: |
           echo "Check all newed/changed CRDs to ${{ github.ref_name }}"
-          
-          ls -la
 
           echo "Update Environment"
-          cat .crds-env-to-apply
+
           cat .crds-to-apply | grep "environments/main" > .crds-env-to-apply | true
+          ls -la
           cat .crds-env-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
 
           ------------------------------------------------------------------------
