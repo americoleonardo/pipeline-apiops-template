@@ -26,41 +26,31 @@ jobs:
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
           cat .diff-files | grep -v ".github/" | grep .yaml  > .crds-to-apply | true
-          
       - name: test/lint
         run: yamllint .
-
       - name: Configure CLI environment
         run: |
           ssd configure --url ${{ secrets.SENSEDIA_CLI_MANAGER_URL }} --token ${{ secrets.SENSEDIA_CLI_TOKEN  }} -o json
-
-      
-          
-  deploy:
-    name: Deploy Stage
+      - name: build artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build-artifact
+          path: .
+  deploy_main:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    name: Deploy prod
+    environment: main
     needs: build
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name }}
+    
     steps:
       - name: download build artifact
         uses: actions/download-artifact@master
         with:
           name: build-artifact
           path: .
-      - name: load env vars
-        run: |
-          mkdir -p /home/runner/.sensedia
-          echo "{\"default\":{\"output\": \"yaml\",\"token\": \"${{ secrets.SENSEDIA_CLI_TOKEN }}\",\"url\": \"${{ vars.SENSEDIA_CLI_MANAGER_URL }}\"}}" > /home/runner/.sensedia/config.json
-          echo "{\"default\":{\"token\":\"${{ secrets.SENSEDIA_CLI_TOKEN  }}\"}}" > /home/runner/.sensedia/.cache.json
-          cat /home/runner/.sensedia/config.json
-          cat /home/runner/.sensedia/.cache.json
 
-      - name: setup cli
-        run: | #FIX
-          wget -O ssd \
-            https://github.com/thiagoyeds/pipeline-apiops-template/raw/dev/ssd
-          chmod +x ssd
-      - name: ssd apply crds
+      - name: Apply changed files
         run: |
           echo "all newed/changed CRDs"
           cat .crds-to-apply
