@@ -52,6 +52,7 @@ jobs:
 
       - name: Apply changed files
         run: |
+          ssd version
           echo "Check all newed/changed CRDs"
           
           echo "Update Apps"
