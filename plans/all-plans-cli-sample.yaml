@@ -1,7 +1,7 @@
 apiVersion: api-management.sensedia.com/v1
 kind: Plan
 spec:
-  name: environments-plan-cli-sample
+  name: environments-plan-cli-sample-a
   apiRef:
     name: CLI-Sample
     version: 1.0.0
