@@ -62,6 +62,7 @@ jobs:
           #       ssd apply -f $file
           #   fi
           # done
+          
           echo "Update Environment"
 
           cat .crds-to-apply | grep "environments/dev" > crds-env-to-apply.txt | true
