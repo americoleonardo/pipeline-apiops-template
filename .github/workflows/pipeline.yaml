@@ -70,7 +70,7 @@ jobs:
             command="ssd apply -f $line"
             echo "Executando: $command"
             
-          done <crds-env-to-apply.txt
+          done < crds-env-to-apply.txt
           
 
       - name: Apply changed files
