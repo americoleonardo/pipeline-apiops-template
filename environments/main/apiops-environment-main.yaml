@@ -18,5 +18,5 @@ spec:
       name: Map sample
       vars:
         - key: url-cli-sample
-          value: https://swapi.dev/api
+          value: https://swapi.dev/apis
           variableType: DEFAULT
