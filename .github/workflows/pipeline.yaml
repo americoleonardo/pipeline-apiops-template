@@ -64,13 +64,13 @@ jobs:
           # done
           echo "Check all newed/changed CRDs to ${{ github.ref_name }}"
           echo "Update Environment"
-          cat .crds-to-apply | grep "environments/main" > .crds-env-to-apply | true
+          cat .crds-to-apply | grep "environments/main" > crds-env-to-apply.txt | true
 
           while IFS="" read -r p || [-n "$line"] do
             command="ssd apply -f $line"
             echo "Executando: $command"
             
-          done <.crds-env-to-apply
+          done <crds-env-to-apply.txt
           
 
       - name: Apply changed files
