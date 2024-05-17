@@ -7,8 +7,8 @@ O processo de APIOps é uma abordagem moderna para gerenciar APIs de forma autom
 ### Fluxo da pipeline
 
 A pipeline é dividida em duas etapas:
-- Build stage
-- Deploy stage
+- `Build stage`
+- `Deploy stage`
 
 Build stage contempla as seguintes ações:
 
@@ -27,9 +27,9 @@ Deploy stage contempla as seguintes ações:
 ### Acionadores da pipeline
 
 Os acionadores para a pipeline executar são as seguintes branchs:
-- main
-- dev
-- hml
+- `main`
+- `dev`
+- `hml`
 
 ## Configurando pipeline
 
