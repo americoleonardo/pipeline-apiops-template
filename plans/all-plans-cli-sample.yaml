@@ -5,7 +5,7 @@ spec:
   apiRef:
     name: CLI-Sample
     version: 1.0.0
-  description: Description for plan cli-samples
+  description: Description for plan cli-sample
   default: true
   flows:
     - context:

@@ -69,12 +69,12 @@ jobs:
             fi
           done
 
-          ########################################################################       
+          ########################################################################
 
-          echo "Update Apps"
-          cat .crds-to-apply | grep "apps" > crds-app-to-apply.txt | true
+          echo "Update Plans"
+          cat .crds-to-apply | grep "plan-" > crds-plan-to-apply.txt | true
           
-          for line in $(cat "crds-app-to-apply.txt")
+          for line in $(cat "crds-plan-to-apply.txt")
           do
             if [ -n "$line" ]; then
               command="ssd apply -f $line"
@@ -83,12 +83,12 @@ jobs:
             fi
           done
           
-          ########################################################################
+          ########################################################################       
 
-          echo "Update Plans"
-          cat .crds-to-apply | grep "plan-" > crds-plan-to-apply.txt | true
+          echo "Update Apps"
+          cat .crds-to-apply | grep "apps" > crds-app-to-apply.txt | true
           
-          for line in $(cat "crds-plan-to-apply.txt")
+          for line in $(cat "crds-app-to-apply.txt")
           do
             if [ -n "$line" ]; then
               command="ssd apply -f $line"
