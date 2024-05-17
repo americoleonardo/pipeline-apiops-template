@@ -5,5 +5,5 @@ spec:
     name: CLI-Sample
     version: "1.0.0"
   environmentRef:
-    name: CLI - Dev 
+    name: CLI - Dev
   revision: "1"
