@@ -100,7 +100,7 @@ jobs:
           ########################################################################
 
           echo "Update RestAPI"
-          cat .crds-to-apply | grep "restapi-" > crds-restapi-to-apply.txt | true
+          cat .crds-to-apply | grep "restapi" > crds-restapi-to-apply.txt | true
           
           for line in $(cat "crds-restapi-to-apply.txt")
           do
