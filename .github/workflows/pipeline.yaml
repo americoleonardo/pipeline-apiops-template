@@ -56,13 +56,6 @@ jobs:
       - name: Check And Apply Changes
         run: |
 
-          # for file in $(git diff --name-only main HEAD^ | grep -c environments/main); do
-          #   if [[ $file == *.yaml ]]; then
-          #       echo "Arquivo YAML modificado: $file"
-          #       ssd apply -f $file
-          #   fi
-          # done
-          
           echo "Update Environment"
 
           cat .crds-to-apply | grep "environments/${{ github.ref_name }}" > crds-env-to-apply.txt | true
