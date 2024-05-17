@@ -69,9 +69,11 @@ jobs:
 
           for line in $(cat "crds-env-to-apply.txt")
           do
+            if [ -n "$line" ]; then
               command="ssd apply -f $line"
               echo "Executando: $command"
               $command
+            fi
           done
 
           ------------------------------------------------------------------------
@@ -81,9 +83,11 @@ jobs:
           
           for line in $(cat "crds-plan-to-apply.txt")
           do
+            if [ -n "$line" ]; then
               command="ssd apply -f $line"
               echo "Executando: $command"
               $command
+            fi
           done
 
           ------------------------------------------------------------------------          
@@ -93,9 +97,11 @@ jobs:
           
           for line in $(cat "crds-app-to-apply.txt")
           do
+            if [ -n "$line" ]; then
               command="ssd apply -f $line"
               echo "Executando: $command"
               $command
+            fi
           done
 
           ------------------------------------------------------------------------
@@ -105,9 +111,11 @@ jobs:
           
           for line in $(cat "crds-restapi-to-apply.txt")
           do
+            if [ -n "$line" ]; then
               command="ssd apply -f $line"
               echo "Executando: $command"
               $command
+            fi
           done
 
           ------------------------------------------------------------------------
@@ -117,9 +125,11 @@ jobs:
 
           for line in $(cat "crds-appenvlink-to-apply.txt")
           do
+            if [ -n "$line" ]; then
               command="ssd apply -f $line"
               echo "Executando: $command"
               $command
+            fi
           done
 
           ------------------------------------------------------------------------
@@ -129,7 +139,9 @@ jobs:
           
           for line in $(cat "crds-deployment-to-apply.txt")
           do
+            if [ -n "$line" ]; then
               command="ssd apply -f $line"
               echo "Executando: $command"
               $command
+            fi
           done
