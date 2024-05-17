@@ -35,9 +35,9 @@ Os acionadores para a pipeline executar são as seguintes branchs:
 
 ### Variáveis e segredos do ambiente
 
-Para execução da pipeline de APIOps, é preciso configurar a variável de ambiente **SENSEDIA_CLI_MANAGER_URL** e o segredo **SENSEDIA_CLI_TOKEN**.
+Para execução da pipeline de APIOps, é preciso configurar a variável de ambiente `SENSEDIA_CLI_MANAGER_URL` e o segredo `SENSEDIA_CLI_TOKEN`.
 
-A pipeline está configurada para puxar as variaveis e as secrets configuradas no repo do GitHub de acordo com o nome da branch. Por exemplo: Se o processo de APIOps for em cima da branch **main** contendo todos os ambientes do gateway Sensedia, é necessário criar um **Environment** com o nome **main** e adicionar as variáveis e segredos de acordo com a tabela acima.
+A pipeline está configurada para puxar as variaveis e as secrets configuradas no repo do GitHub de acordo com o nome da branch. Por exemplo: Se o processo de APIOps for em cima da branch `main` contendo todos os ambientes do gateway Sensedia, é necessário criar um `Environment` com o nome `main` e adicionar as variáveis e segredos de acordo com a tabela acima.
 
 ## Estruturação do repo
 
