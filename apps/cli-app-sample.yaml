@@ -2,7 +2,7 @@ apiVersion: api-management.sensedia.com/v1
 kind: App
 spec:
   name: cli-app-samples
-  description: APP sample descriptions
+  description: APP sample description
   developer: leonardo.americo@sensedia.com
   status: APPROVED
   showAppGallery: false
