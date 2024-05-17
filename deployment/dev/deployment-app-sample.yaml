@@ -3,7 +3,7 @@ kind: Deployment
 spec:
   apiRef:
     name: CLI-Sample
-    version: "1.0.0" 
+    version: "1.0.0"
   environmentRef:
     name: CLI - Dev
   revision: "1"
