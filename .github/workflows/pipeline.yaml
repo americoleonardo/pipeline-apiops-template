@@ -65,7 +65,7 @@ jobs:
           
           echo "Update Environment"
 
-          cat .crds-to-apply | grep "environments/dev" > crds-env-to-apply.txt | true
+          cat .crds-to-apply | grep "environments/${{ github.ref_name }}" > crds-env-to-apply.txt | true
 
           for line in $(cat "crds-env-to-apply.txt")
           do
@@ -73,47 +73,63 @@ jobs:
               echo "Executando: $command"
               $command
           done
-                    
-
-      - name: Apply changed files
-        run: |
-          
-
-          cat .crds-to-apply | grep "environments/main" > .crds-env-to-apply | true
-          
-          while IFS= .crds-env-to-apply -r line; do
-            command="ssd apply -f $line"
-            echo "Executando: $command"
-            $command
-          done
-          
 
           ------------------------------------------------------------------------
 
           echo "Update Plans"
-          cat .crds-to-apply | grep "plan-" > .crds-plan-to-apply | true
-          cat .crds-plan-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
+          cat .crds-to-apply | grep "plan-" > crds-plan-to-apply.txt | true
+          
+          for line in $(cat "crds-plan-to-apply.txt")
+          do
+              command="ssd apply -f $line"
+              echo "Executando: $command"
+              $command
+          done
 
-          ------------------------------------------------------------------------
+          ------------------------------------------------------------------------          
 
           echo "Update Apps"
-          cat .crds-to-apply | grep "apps" > .crds-app-to-apply | true
-          cat .crds-app-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
+          cat .crds-to-apply | grep "apps" > crds-app-to-apply.txt | true
           
+          for line in $(cat "crds-app-to-apply.txt")
+          do
+              command="ssd apply -f $line"
+              echo "Executando: $command"
+              $command
+          done
+
           ------------------------------------------------------------------------
 
           echo "Update RestAPI"
-          cat .crds-to-apply | grep "restapi-" > .crds-restapi-to-apply | true
-          cat .crds-restapi-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
+          cat .crds-to-apply | grep "restapi-" > crds-restapi-to-apply.txt | true
+          
+          for line in $(cat "crds-restapi-to-apply.txt")
+          do
+              command="ssd apply -f $line"
+              echo "Executando: $command"
+              $command
+          done
 
           ------------------------------------------------------------------------
 
           echo "Update ApiEnvironmentLink"
-          cat .crds-to-apply | grep "environment-link/main-" > .crds-appenvlink-to-apply | true
-          cat .crds-appenvlink-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
+          cat .crds-to-apply | grep "environment-link/${{ github.ref_name }}-" > crds-appenvlink-to-apply.txt | true
+
+          for line in $(cat "crds-appenvlink-to-apply.txt")
+          do
+              command="ssd apply -f $line"
+              echo "Executando: $command"
+              $command
+          done
 
           ------------------------------------------------------------------------
 
           echo "Deploy APIs"
-          cat .crds-to-apply | grep "deployment/main" > .crds-deployment-to-apply | true
-          cat .crds-deployment-to-apply | xargs -n 1 --no-run-if-empty -t ssd apply -f
+          cat .crds-to-apply | grep "deployment/${{ github.ref_name }}" > crds-deployment-to-apply.txt | true
+          
+          for line in $(cat "crds-deployment-to-apply.txt")
+          do
+              command="ssd apply -f $line"
+              echo "Executando: $command"
+              $command
+          done
