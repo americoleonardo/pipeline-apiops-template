@@ -3,7 +3,7 @@ kind: RestAPI
 spec:
   name: CLI-Sample
   version: "1.0.0"
-  description: CLI Sample API for testing automation
+  description: CLI Sample API for testing automations
   basePath: /cli-sample/v1
   stageRef:
     name: "Stage One"
