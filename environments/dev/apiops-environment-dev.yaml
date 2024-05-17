@@ -20,6 +20,3 @@ spec:
         - key: url-cli-sample
           value: https://swapi.dev/api
           variableType: DEFAULT
-        - key: url-cli-sample2
-          value: https://swapi.dev/api
-          variableType: DEFAULT
