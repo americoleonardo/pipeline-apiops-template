@@ -72,7 +72,7 @@ jobs:
           ########################################################################
 
           echo "Update Plans"
-          cat .crds-to-apply | grep "plan-" > crds-plan-to-apply.txt | true
+          cat .crds-to-apply | grep "plans" > crds-plan-to-apply.txt | true
           
           for line in $(cat "crds-plan-to-apply.txt")
           do
@@ -82,7 +82,7 @@ jobs:
               $command
             fi
           done
-          
+
           ########################################################################       
 
           echo "Update Apps"
