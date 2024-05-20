@@ -1,0 +1,22 @@
+apiVersion: api-management.sensedia.com/v1
+kind: Environment
+spec:
+  name: CLI - Dev
+  description: CLI dev environment
+  deploymentPermission:
+    type: Organization
+  tracePermission:
+    type: Organization
+  gatewayPoolRef:
+    name: default
+  inboundURL:
+    inboundAddressRef:
+      name: CLI - Dev
+    path: ""
+  mapVars:
+    - description: Description for API Samples
+      name: Map sample
+      vars:
+        - key: url-cli-sample
+          value: https://swapi.dev/api
+          variableType: DEFAULT

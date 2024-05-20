@@ -1,0 +1,140 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - hml
+      - dev
+jobs:
+  build:
+    name: Build Stage
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install packages
+        run: |
+          sudo apt-get update && sudo apt-get install -y wget curl yamllint
+      - name: filter differences
+        run: |
+          git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > .diff-files
+          cat .diff-files | grep -v ".github/" | grep .yaml  > .crds-to-apply | true
+      - name: test/lint
+        run: yamllint .
+      
+      - name: build artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build-artifact
+          path: .
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name }}
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@master
+        with:
+          name: build-artifact
+          path: .
+      - name: Install CLI
+        run: |
+          sudo apt-get update && sudo apt-get install -y wget curl yamllint &&
+          curl -L https://cli.sensedia.com/2.8.0/ssd-linux-amd64/ssd -o ssd &&
+          chmod +x ssd && mv ssd /usr/local/bin
+      - name: Configure CLI environment
+        run: |
+          ssd configure --url ${{ secrets.SENSEDIA_CLI_MANAGER_URL }} --token ${{ secrets.SENSEDIA_CLI_TOKEN  }} -o json
+      
+      - name: Check And Apply Changes
+        run: |
+
+          echo "Update Environment"
+
+          cat .crds-to-apply | grep "environments/${{ github.ref_name }}" > crds-env-to-apply.txt | true
+
+          for line in $(cat "crds-env-to-apply.txt")
+          do
+            if [ -n "$line" ]; then
+              command="ssd apply -f $line"
+              echo "Executando: $command"
+              $command
+            fi
+          done
+
+          ########################################################################
+
+          echo "Update Plans"
+          cat .crds-to-apply | grep "plans" > crds-plan-to-apply.txt | true
+          
+          for line in $(cat "crds-plan-to-apply.txt")
+          do
+            if [ -n "$line" ]; then
+              command="ssd apply -f $line"
+              echo "Executando: $command"
+              $command
+            fi
+          done
+
+          ########################################################################       
+
+          echo "Update Apps"
+          cat .crds-to-apply | grep "apps" > crds-app-to-apply.txt | true
+          
+          for line in $(cat "crds-app-to-apply.txt")
+          do
+            if [ -n "$line" ]; then
+              command="ssd apply -f $line"
+              echo "Executando: $command"
+              $command
+            fi
+          done
+
+          ########################################################################
+
+          echo "Update RestAPI"
+          cat .crds-to-apply | grep "restapi" > crds-restapi-to-apply.txt | true
+          
+          for line in $(cat "crds-restapi-to-apply.txt")
+          do
+            if [ -n "$line" ]; then
+              command="ssd apply -f $line"
+              echo "Executando: $command"
+              $command
+            fi
+          done
+
+          ########################################################################
+
+          echo "Update ApiEnvironmentLink"
+          cat .crds-to-apply | grep "environment-link/${{ github.ref_name }}-" > crds-appenvlink-to-apply.txt | true
+
+          for line in $(cat "crds-appenvlink-to-apply.txt")
+          do
+            if [ -n "$line" ]; then
+              command="ssd apply -f $line"
+              echo "Executando: $command"
+              $command
+            fi
+          done
+
+          ########################################################################
+
+          echo "Deploy APIs"
+          cat .crds-to-apply | grep "deployment/${{ github.ref_name }}" > crds-deployment-to-apply.txt | true
+          
+          for line in $(cat "crds-deployment-to-apply.txt")
+          do
+            if [ -n "$line" ]; then
+              command="ssd apply -f $line"
+              echo "Executando: $command"
+              $command
+            fi
+          done

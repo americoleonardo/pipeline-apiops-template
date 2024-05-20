@@ -1,0 +1,15 @@
+apiVersion: api-management.sensedia.com/v1
+kind: RestAPI
+spec:
+  name: CLI-Sample
+  version: "1.0.0"
+  description: CLI Sample API for testing automation
+  basePath: /cli-sample/v1
+  stageRef:
+    name: "Stage One"
+  flow:
+    destination: $url-cli-sample
+    requestInterceptors:
+      - log:
+        encryptContent: true
+        encryptParams: false
