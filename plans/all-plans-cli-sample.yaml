@@ -1,11 +1,11 @@
 apiVersion: api-management.sensedia.com/v1
 kind: Plan
 spec:
-  name: environments-plan-cli-sample-a
+  name: environments-plan-cli-sample
   apiRef:
     name: CLI-Sample
     version: 1.0.0
-  description: Description for plan cli-sample
+  description: Description for plan cli-samples
   default: true
   flows:
     - context:

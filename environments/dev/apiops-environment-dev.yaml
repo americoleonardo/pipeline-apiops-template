@@ -14,9 +14,9 @@ spec:
       name: CLI - Dev
     path: ""
   mapVars:
-    - description: Description for API Sample
+    - description: Description for API Samples
       name: Map sample
       vars:
         - key: url-cli-sample
-          value: https://swapi.dev/apis
+          value: https://swapi.dev/api
           variableType: DEFAULT
